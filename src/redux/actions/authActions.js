@@ -16,7 +16,7 @@ export const logout = (navigate) => (dispatch) => {
 };
 
 // Me
-export const getMe = (callback) => async (dispatch, getState) => {
+export const getMe = () => async (dispatch, getState) => {
   try {
     const { token } = getState().auth;
 
@@ -30,7 +30,7 @@ export const getMe = (callback) => async (dispatch, getState) => {
     if (error.response.status === 401) {
       localStorage.removeItem("token");
       dispatch(setToken(null));
-      callback(error.response.status);
+      // callback(error.response.status);
     }
   }
 };

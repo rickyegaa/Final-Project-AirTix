@@ -26,7 +26,7 @@ function Banner() {
   const [valueAnak, setValueAnak] = useState("");
   const [valueBayi, setValueBayi] = useState("");
   const [isEnabled, setIsEnabled] = useState(false);
-  const [sum, setSum] = useState("");
+  const [sum, setSum] = useState(0);
   const [selectedOptionSeat, setSelectedOptionSeat] = useState(null);
 
   const handleOptionClickSeat = (option) => {
@@ -45,10 +45,8 @@ function Banner() {
     const num2 = parseFloat(valueAnak);
     const num3 = parseFloat(valueBayi);
 
-    if (!isNaN(num1) && !isNaN(num2) && !isNaN(num3)) {
-      const result = num1 + num2 + num3;
-      setSum(result.toString());
-    }
+    const result = !isNaN(num1) + !isNaN(num2) + !isNaN(num3);
+    setSum(result.toString());
   };
 
   const handleClosePassenger = () => setShowPassenger(false);

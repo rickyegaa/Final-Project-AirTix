@@ -54,13 +54,13 @@ const destinations = [
 
 const DestinationCard = ({ destination }) => {
   const dispatch = useDispatch();
-  const { airports } = useSelector((state) => state.post);
+  // const { airports } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getAllAirports());
   }, [dispatch]);
 
-  console.log(airports);
+  // console.log(airports);
   return (
     <>
       {/* {airports &&
