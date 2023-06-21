@@ -8,6 +8,7 @@ import Riwayat from "./pages/Riwayat";
 import Verifikasi from "./pages/Verifikasi";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 import NoTokenAccess from "./components/NoTokenAccess";
 import { Provider } from "react-redux";
@@ -17,29 +18,32 @@ import CariPenerbangan from "./pages/CariPenerbangan";
 
 function App() {
   return (
-
     <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/Login"
-            element={
-              <NoTokenAccess>
-                <Login />
-              </NoTokenAccess>
-            }
-          />
-          <Route path="Register" element={<Register />} />
-          <Route path="ResetPassword" element={<ResetPassword />} />
-          <Route path="Riwayat" element={<Riwayat />} />
-          <Route path="Verifikasi" element={<Verifikasi />} />
-          <Route path="Checkout" element={<Checkout />} />
-          <Route path="Payment" element={<Payment />} />
-          <Route path="CariPenerbangan" element={<CariPenerbangan />} />
-        </Routes>
-        <ToastContainer theme="colored" />
-      </BrowserRouter>
+      <GoogleOAuthProvider
+        clientId={process.env.REACT_APP_GOOGLE_OAUTH_CLIENT_ID}
+      >
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="/Login"
+              element={
+                <NoTokenAccess>
+                  <Login />
+                </NoTokenAccess>
+              }
+            />
+            <Route path="Register" element={<Register />} />
+            <Route path="ResetPassword" element={<ResetPassword />} />
+            <Route path="Riwayat" element={<Riwayat />} />
+            <Route path="Verifikasi" element={<Verifikasi />} />
+            <Route path="Checkout" element={<Checkout />} />
+            <Route path="Payment" element={<Payment />} />
+            <Route path="CariPenerbangan" element={<CariPenerbangan />} />
+          </Routes>
+          <ToastContainer theme="colored" />
+        </BrowserRouter>
+      </GoogleOAuthProvider>
     </Provider>
   );
 }

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Navbar, Nav, Container, Button, Form } from "react-bootstrap";
+import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, getMe } from "../redux/actions/authActions";
@@ -18,7 +18,7 @@ function Homepage() {
     <>
       <Navbar bg="light" variant="light">
         <Container>
-          <Navbar.Brand href="#home" className="d-flex align-items-center">
+          <Navbar.Brand as={Link} to="/" className="d-flex align-items-center">
             <img
               src={require("../assets/img/AirTix.svg").default}
               alt="AirTix.svg"
@@ -30,15 +30,6 @@ function Homepage() {
               }}
             />
           </Navbar.Brand>
-          <Nav className="w-50">
-            <Form className="form-search w-100 mx-auto">
-              <Form.Control
-                type="search"
-                placeholder="Cari disini .."
-                aria-label="Search"
-              />
-            </Form>
-          </Nav>
 
           <Nav className="d-flex justify-content-end gap-2">
             {isLoggedIn ? (

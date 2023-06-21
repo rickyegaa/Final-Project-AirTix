@@ -16,42 +16,24 @@ export const logout = (navigate) => (dispatch) => {
 };
 
 // Me
-export const getMe =
-  (navigate, navigatePath, navigatePathError) => async (dispatch, getState) => {
-    try {
-      const { token } = getState().auth;
+export const getMe = () => async (dispatch, getState) => {
+  try {
+    const { token } = getState().auth;
 
-      if (!token) return;
-
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/v1/auth/whoami`,
-        {
-          headers: {
-            Authorization: ` ${token}`,
-          },
-        }
-      );
-
-      const data = response.data.data;
-
-      dispatch(setUser(data));
-
-      if (navigatePath) navigate(navigatePath);
-    } catch (error) {
-      if (axios.isAxiosError(error)) {
-        if (error.response.status === 401) {
-          dispatch(logout(null));
-
-          if (navigatePathError) navigate(navigatePathError);
-          return;
-        }
-
-        toast.error(error.response.data.message);
-        return;
-      }
-      toast.error(error.message);
+    const result = await axios.get(`${process.env.REACT_APP_API}/auth/whoami`, {
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+    dispatch(setUser(result.data.data));
+  } catch (error) {
+    if (error.response.status === 401) {
+      localStorage.removeItem("token");
+      dispatch(setToken(null));
+      // callback(error.response.status);
     }
-  };
+  }
+};
 
 // Login
 export const login = (data, navigate) => async (dispatch) => {
@@ -122,21 +104,57 @@ export const register = (data, navigate) => async (dispatch) => {
 };
 
 // Verifikasi
-export const verify = () => async (getState) => {
-  try {
-    const { token } = getState().auth;
+// export const verify = () => async (getState) => {
+//   try {
+//     const { token } = getState().auth;
 
-    const result = await axios.post(
-      `${process.env.REACT_APP_API}/auth/resend-otp`,
-      {
+//     const result = await axios.post(
+//       `${process.env.REACT_APP_API}/auth/resend-otp`,
+//       {
+//         headers: {
+//           "Content-tpye": "application/json",
+//         },
+//       }
+//     );
+//     toast.success(result.data.message);
+//   } catch (error) {
+//     toast.error(error.response.data.message);
+//     throw error;
+//   }
+// };
+
+export const registerLoginWithGoogle =
+  (accessToken, navigate) => async (dispatch) => {
+    try {
+      let data = JSON.stringify({
+        access_token: accessToken,
+      });
+
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        //this API from Fahmi Alfareza
+        url: `https://km4-challenge-5-api.up.railway.app/api/v1/auth/google`,
         headers: {
-          "Content-tpye": "application/json",
+          "Content-Type": "application/json",
         },
+        data: data,
+      };
+
+      const response = await axios.request(config);
+      const { token } = response.data.data;
+
+      dispatch(setToken(token));
+      dispatch(setIsLoggedIn(true));
+      dispatch(getMe(null, null, null));
+
+      // We will use navigate from react-router-dom by passing the argument because the useNavigate() can only used in component
+      navigate("/");
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        toast.error(error.response.data.message);
+        return;
       }
-    );
-    toast.success(result.data.message);
-  } catch (error) {
-    toast.error(error.response.data.message);
-    throw error;
-  }
-};
+      toast.error(error.message);
+    }
+  };

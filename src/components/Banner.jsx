@@ -26,7 +26,13 @@ function Banner() {
   const [valueAnak, setValueAnak] = useState("");
   const [valueBayi, setValueBayi] = useState("");
   const [isEnabled, setIsEnabled] = useState(false);
-  const [sum, setSum] = useState("");
+  const [sum, setSum] = useState(0);
+  const [selectedOptionSeat, setSelectedOptionSeat] = useState(null);
+
+  const handleOptionClickSeat = (option) => {
+    setSelectedOptionSeat(option);
+  };
+
   // const [selectedDate, setSelectedDate] = useState("");
 
   // const handleDateChange = (event) => {
@@ -39,10 +45,8 @@ function Banner() {
     const num2 = parseFloat(valueAnak);
     const num3 = parseFloat(valueBayi);
 
-    if (!isNaN(num1) && !isNaN(num2) && !isNaN(num3)) {
-      const result = num1 + num2 + num3;
-      setSum(result.toString());
-    }
+    const result = !isNaN(num1) + !isNaN(num2) + !isNaN(num3);
+    setSum(result.toString());
   };
 
   const handleClosePassenger = () => setShowPassenger(false);
@@ -81,53 +85,55 @@ function Banner() {
   };
   return (
     <div>
-      <div className="cont"
+      <div
+        className="cont"
         style={{
           backgroundImage:
-          " linear-gradient(to right,rgba(113, 38, 181, 1), rgba(159,102,210,1), rgba(182,156,205,1)",
-          zIndex:-1,
-          height:150,
-          marginBottom:-250,
+            " linear-gradient(to right,rgba(113, 38, 181, 1), rgba(159,102,210,1), rgba(182,156,205,1)",
+          zIndex: -1,
+          height: 150,
+          marginBottom: -250,
           marginTop: 80,
-        }}>
-      </div>
-    <Container>
-      <Row className="d-flex ">
-        <Col>
-        <div className="banner w-200 mt-5">
-          <img
-            src={require("../assets/img/brn.svg").default}
-            alt="banner"
-            style={{
-              width: "100%",
-              height: 255,
-              borderRadius: 20,
-              backgroundImage:
-                " linear-gradient(to right,rgba(255, 233, 202, 1), rgba(255,0,0,0))",
-            }}
-          />
-          </div>
-        </Col>
-      </Row>
+        }}
+      ></div>
+      <Container>
+        <Row className="d-flex ">
+          <Col>
+            <div className="banner w-200 mt-5">
+              <img
+                src={require("../assets/img/brn.svg").default}
+                alt="banner"
+                style={{
+                  width: "100%",
+                  height: 255,
+                  borderRadius: 20,
+                  backgroundImage:
+                    " linear-gradient(to right,rgba(255, 233, 202, 1), rgba(255,0,0,0))",
+                }}
+              />
+            </div>
+          </Col>
+        </Row>
         <Container
           className="border-0 bg-white"
           style={{
-            boxShadow:
-              "0 0px 10px 0 rgba(0, 0, 0,  0.15)",
-              width: 978,
-              marginTop: 35,
-              borderRadius: 12,
-              paddingTop: 35,
-              paddingRight: 35,
-              paddingLeft: 35,
-              fontFamily: "Poppins",
+            boxShadow: "0 0px 10px 0 rgba(0, 0, 0,  0.15)",
+            width: 978,
+            marginTop: 35,
+            borderRadius: 12,
+            paddingTop: 35,
+            paddingRight: 35,
+            paddingLeft: 35,
+            fontFamily: "Poppins",
           }}
         >
           <Card.Header className="border-0 mb-3">
-            <h6><b>
-              Pilih Jadwal Penerbangan spesial di
-              <span style={{ color: "#7126B5" }}> AirTix!</span>
-            </b></h6>
+            <h6>
+              <b>
+                Pilih Jadwal Penerbangan spesial di
+                <span style={{ color: "#7126B5" }}> AirTix!</span>
+              </b>
+            </h6>
           </Card.Header>
           <Card.Body>
             <Card.Text>
@@ -203,7 +209,9 @@ function Banner() {
                     <Form.Control
                       type="date"
                       disabled={!isEnabled}
-                      placeholder={isEnabled ? "Input enabled" : "Input disabled"}
+                      placeholder={
+                        isEnabled ? "Input enabled" : "Input disabled"
+                      }
                     />
                   </Form.Group>
                   <Form.Group className="mb-3" controlId="formBasicCheckbox">
@@ -238,7 +246,9 @@ function Banner() {
                     <Form.Label>Seat Class</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Class"
+                      placeholder={
+                        selectedOptionSeat ? selectedOptionSeat : "Seat Class"
+                      }
                       onClick={handleShowSeatClass}
                       readOnly="readonly"
                     />
@@ -336,7 +346,10 @@ function Banner() {
               <Form>
                 {["radio"].map((type) => (
                   <div key={`reverse-${type}`} className="mb-3 d-grid ">
-                    <Form.Group className="d-flex justify-content-between">
+                    <Form.Group
+                      className="d-flex justify-content-between"
+                      onClick={() => handleOptionClickSeat("Economy")}
+                    >
                       <Form.Group className="d-grid">
                         <Form.Label>Economy</Form.Label>
                         <Form.Text>IDR 4.950.000</Form.Text>
@@ -350,7 +363,10 @@ function Banner() {
                         id={`reverse-${type}-1`}
                       />
                     </Form.Group>
-                    <Form.Group className="d-flex justify-content-between">
+                    <Form.Group
+                      className="d-flex justify-content-between"
+                      onClick={() => handleOptionClickSeat("Premium Economy")}
+                    >
                       <Form.Group className="d-grid">
                         <Form.Label>Premium Economy</Form.Label>
                         <Form.Text>IDR 7.550.000</Form.Text>
@@ -364,7 +380,10 @@ function Banner() {
                         id={`reverse-${type}-2`}
                       />
                     </Form.Group>
-                    <Form.Group className="d-flex justify-content-between">
+                    <Form.Group
+                      className="d-flex justify-content-between"
+                      onClick={() => handleOptionClickSeat("Business")}
+                    >
                       <Form.Group className="d-grid">
                         <Form.Label>Business</Form.Label>
                         <Form.Text>IDR 29.220.000</Form.Text>
@@ -378,7 +397,10 @@ function Banner() {
                         id={`reverse-${type}-3`}
                       />
                     </Form.Group>
-                    <Form.Group className="d-flex justify-content-between">
+                    <Form.Group
+                      className="d-flex justify-content-between"
+                      onClick={() => handleOptionClickSeat("First Class")}
+                    >
                       <Form.Group className="d-grid">
                         <Form.Label>First Class</Form.Label>
                         <Form.Text>IDR 87.620.000</Form.Text>
@@ -407,8 +429,8 @@ function Banner() {
               background: "#7126B5",
               border: "0",
               width: "100%",
-              paddingRight:-35,
-              marginTop:35,
+              paddingRight: -35,
+              marginTop: 35,
             }}
             type="submit"
             size="md"
@@ -418,7 +440,7 @@ function Banner() {
             Cari Penerbangan
           </Button>
         </Container>
-    </Container>
+      </Container>
     </div>
   );
 }
