@@ -104,24 +104,24 @@ export const register = (data, navigate) => async (dispatch) => {
 };
 
 // Verifikasi
-export const verify = () => async (getState) => {
-  try {
-    const { token } = getState().auth;
+// export const verify = () => async (getState) => {
+//   try {
+//     const { token } = getState().auth;
 
-    const result = await axios.post(
-      `${process.env.REACT_APP_API}/auth/resend-otp`,
-      {
-        headers: {
-          "Content-tpye": "application/json",
-        },
-      }
-    );
-    toast.success(result.data.message);
-  } catch (error) {
-    toast.error(error.response.data.message);
-    throw error;
-  }
-};
+//     const result = await axios.post(
+//       `${process.env.REACT_APP_API}/auth/resend-otp`,
+//       {
+//         headers: {
+//           "Content-tpye": "application/json",
+//         },
+//       }
+//     );
+//     toast.success(result.data.message);
+//   } catch (error) {
+//     toast.error(error.response.data.message);
+//     throw error;
+//   }
+// };
 
 export const registerLoginWithGoogle =
   (accessToken, navigate) => async (dispatch) => {
