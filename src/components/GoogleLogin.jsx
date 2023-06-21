@@ -1,5 +1,5 @@
 import React from "react";
-// import { Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { useGoogleLogin } from "@react-oauth/google";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,9 +14,9 @@ function GoogleLogin({ log }) {
       dispatch(registerLoginWithGoogle(responseGoogle.access_token, navigate)),
   });
   return (
-    <p variant="primary" onClick={() => loginWithGoogle()}>
+    <Button variant="primary" onClick={() => loginWithGoogle()}>
       {log} with Google 🚀
-    </p>
+    </Button>
   );
 }
 
