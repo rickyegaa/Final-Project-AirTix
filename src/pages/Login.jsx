@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import GoogleLogin from "../components/GoogleLogin";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/actions/authActions";
+
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 import "../assets/css/Login.css";
 
@@ -43,6 +45,7 @@ const Login = () => {
               width: "300px",
               height: "200px",
             }}
+            alt="img"
           />
         </Col>
         <Col className="d-flex justify-content-center align-items-center bg-body">
@@ -90,6 +93,9 @@ const Login = () => {
                     Daftar di Sini
                   </Link>
                 </Form.Text>
+              </div>
+              <div className="text-center">
+                <GoogleLogin log={`Login`} />
               </div>
             </Form>
           </div>
