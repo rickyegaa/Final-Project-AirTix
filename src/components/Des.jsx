@@ -63,7 +63,7 @@ const DestinationCard = ({ destination }) => {
   console.log(airports);
   return (
     <>
-      {airports &&
+      {/* {airports &&
         airports?.length > 0 &&
         airports.map((bandara, index) => (
           <div className="card-dest">
@@ -83,7 +83,24 @@ const DestinationCard = ({ destination }) => {
               </span>
             </p>
           </div>
-        ))}
+        ))} */}
+      <div className="card-dest">
+        <img
+          src={destination.foto}
+          alt={destination.name}
+          className="destination-image"
+        />
+        <p className="name">
+          {destination.city} - {destination.to}
+        </p>
+        <p className="maskapai">{destination.maskapai}</p>
+        <p className="price-description">
+          Mulai dari{" "}
+          <span className="price" style={{ color: "red" }}>
+            IDR {destination.price}
+          </span>
+        </p>
+      </div>
     </>
   );
 };
