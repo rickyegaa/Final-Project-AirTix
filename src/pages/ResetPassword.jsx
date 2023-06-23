@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { Col, Container, Form, Row } from "react-bootstrap";
+import { Col, Container, Form, Row, InputGroup } from "react-bootstrap";
+import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 import "../assets/css/Login.css";
 
 const ResetPassword = () => {
-  const [] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const toggleNewPasswordVisibility = () => {
+    setShowNewPassword(!showNewPassword);
+  };
 
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   return (
     <Container fluid className="vh-100">
       <Row className="h-100">
@@ -26,22 +34,36 @@ const ResetPassword = () => {
             <Form className=" mt-4">
               <Form.Group className="mb-3" controlId="formBasicEmail">
                 <Form.Label>Masukkan Password Baru</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Masukkan Password"
-                  style={{ borderRadius: "15px", height: "50px" }}
-                />
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    type={showNewPassword ? "text" : "password"}
+                    placeholder="Masukkan Password"
+                    style={{ borderRadius: "2px", height: "50px" }}
+                  />
+                  <InputGroup.Text onClick={toggleNewPasswordVisibility}>
+                    {showNewPassword ? (
+                      <BsFillEyeSlashFill />
+                    ) : (
+                      <BsFillEyeFill />
+                    )}
+                  </InputGroup.Text>
+                </InputGroup>
               </Form.Group>
 
               <Form.Group className="mb-3" controlId="formBasicPassword">
                 <div class="d-flex justify-content-between">
                   <Form.Label>Ulangi Password Baru</Form.Label>
                 </div>
-                <Form.Control
-                  type="password"
-                  placeholder="Masukkan Password"
-                  style={{ borderRadius: "15px", height: "50px" }}
-                />
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Masukkan Password"
+                    style={{ borderRadius: "2px", height: "50px" }}
+                  />
+                  <InputGroup.Text onClick={togglePasswordVisibility}>
+                    {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
+                  </InputGroup.Text>
+                </InputGroup>
               </Form.Group>
               <button type="submit" className="login w-100">
                 Simpan

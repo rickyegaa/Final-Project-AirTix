@@ -1,5 +1,7 @@
 
+
 import React, { useState, useEffect } from "react";
+
 
 
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
@@ -89,6 +91,10 @@ function Homepage() {
                   className={`bg-transparent border-0 option ${
                     selectedOption === "option3" ? "active" : ""
                   }`}
+
+                  as={Link}
+                  to="/Profile"
+
                   onClick={() => handleOptionClick("option3")}
                 >
                   <VscAccount
