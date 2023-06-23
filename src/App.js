@@ -17,6 +17,10 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import store from "./redux/store";
 
+import CariPenerbangan from "./pages/CariPenerbangan";
+import Notifikasi from "./pages/Notifikasi";
+
+
 function App() {
   return (
     <Provider store={store}>
@@ -43,6 +47,18 @@ function App() {
                 </Protected>
               }
             />
+
+            <Route path="Register" element={<Register />} />
+            <Route path="ResetPassword" element={<ResetPassword />} />
+            <Route path="Riwayat" element={<Riwayat />} />
+            <Route path="Verifikasi" element={<Verifikasi />} />
+            <Route path="Checkout" element={<Checkout />} />
+            <Route path="Payment" element={<Payment />} />
+
+            <Route path="Notifikasi" element={<Notifikasi />} />
+
+            <Route path="CariPenerbangan" element={<CariPenerbangan />} />
+
           </Routes>
           <ToastContainer theme="colored" />
         </BrowserRouter>
