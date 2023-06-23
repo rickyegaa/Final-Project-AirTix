@@ -40,7 +40,9 @@ function App() {
             <Route path="Verifikasi" element={<Verifikasi />} />
             <Route path="Checkout" element={<Checkout />} />
             <Route path="Payment" element={<Payment />} />
+
             <Route path="Notifikasi" element={<Notifikasi />} />
+
             <Route path="CariPenerbangan" element={<CariPenerbangan />} />
           </Routes>
           <ToastContainer theme="colored" />

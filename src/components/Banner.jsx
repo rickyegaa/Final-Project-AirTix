@@ -45,7 +45,9 @@ function Banner() {
     const num2 = +valueAnak;
     const num3 = +valueBayi;
 
+
     const result = num1 + num2 + num3;
+
     setSum(result.toString());
   };
 
