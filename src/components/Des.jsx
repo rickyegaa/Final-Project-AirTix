@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container } from "react-bootstrap";
+import { Container, Card } from "react-bootstrap";
 import { FiSearch } from "react-icons/fi";
 import "../components/Des.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -54,16 +54,16 @@ const destinations = [
 
 const DestinationCard = ({ destination }) => {
   const dispatch = useDispatch();
-  // const { airports } = useSelector((state) => state.post);
+  const { airports } = useSelector((state) => state.post);
 
   useEffect(() => {
     dispatch(getAllAirports());
   }, [dispatch]);
 
-  // console.log(airports);
+  console.log(airports);
   return (
-    <>
-      {/* {airports &&
+    <Container>
+      {airports &&
         airports?.length > 0 &&
         airports.map((bandara, index) => (
           <div className="card-dest">
@@ -73,9 +73,9 @@ const DestinationCard = ({ destination }) => {
               className="destination-image"
             />
             <p className="name">
-              {bandara.city} - {destination.to}
+              {bandara.dep_airport} - {bandara.arr_airport}
             </p>
-            <p className="maskapai">{destination.maskapai}</p>
+            <p className="maskapai">{bandara.plane}</p>
             <p className="price-description">
               Mulai dari{" "}
               <span className="price" style={{ color: "red" }}>
@@ -83,25 +83,8 @@ const DestinationCard = ({ destination }) => {
               </span>
             </p>
           </div>
-        ))} */}
-      <div className="card-dest">
-        <img
-          src={destination.foto}
-          alt={destination.name}
-          className="destination-image"
-        />
-        <p className="name">
-          {destination.city} - {destination.to}
-        </p>
-        <p className="maskapai">{destination.maskapai}</p>
-        <p className="price-description">
-          Mulai dari{" "}
-          <span className="price" style={{ color: "red" }}>
-            IDR {destination.price}
-          </span>
-        </p>
-      </div>
-    </>
+        ))}
+    </Container>
   );
 };
 

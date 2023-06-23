@@ -4,8 +4,11 @@ import { toast } from "react-toastify";
 
 export const getAllAirports = () => async (dispatch) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_API}/airports`);
-    dispatch(setAirports(response.data.data));
+    const response = await axios.get(
+      `https://648313a9f2e76ae1b95be96f.mockapi.io/tiket`
+    );
+    dispatch(setAirports(response.data));
+    // console.log(response.data);
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);
