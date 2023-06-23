@@ -41,11 +41,13 @@ function Banner() {
   // };
 
   const handleSumClick = () => {
-    const num1 = parseFloat(valueDewasa);
-    const num2 = parseFloat(valueAnak);
-    const num3 = parseFloat(valueBayi);
+    const num1 = +valueDewasa;
+    const num2 = +valueAnak;
+    const num3 = +valueBayi;
 
-    const result = !isNaN(num1) + !isNaN(num2) + !isNaN(num3);
+
+    const result = num1 + num2 + num3;
+
     setSum(result.toString());
   };
 
