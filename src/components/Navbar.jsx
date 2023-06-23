@@ -1,15 +1,22 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar, Nav, Container, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logout, getMe } from "../redux/actions/authActions";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { MdCircleNotifications } from "react-icons/md";
+import { VscAccount } from "react-icons/vsc";
 
 function Homepage() {
+  const [selectedOption, setSelectedOption] = useState(null);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { isLoggedIn } = useSelector((state) => state.auth);
-
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+  };
   useEffect(() => {
     dispatch(getMe(null, null, null));
   }, [dispatch]);
@@ -44,6 +51,49 @@ function Homepage() {
                   className="d-flex align-items-center justify-content-between border-0 rounded-3"
                 >
                   Logout
+                </Button>
+                <Button
+                  className={`bg-transparent border-0 option ${
+                    selectedOption === "option1" ? "active" : ""
+                  }`}
+                  as={Link}
+                  to="/riwayat"
+                  onClick={() => handleOptionClick("option1")}
+                >
+                  <RxHamburgerMenu
+                    color={
+                      selectedOption === "option1" ? " #7126B5BF" : "#3C3C3C"
+                    }
+                    size={25}
+                  />
+                </Button>
+                <Button
+                  className={`bg-transparent border-0 option ${
+                    selectedOption === "option2" ? "active" : ""
+                  }`}
+                  as={Link}
+                  to="/notifikasi"
+                  onClick={() => handleOptionClick("option2")}
+                >
+                  <MdCircleNotifications
+                    color={
+                      selectedOption === "option2" ? " #7126B5BF" : "#3C3C3C"
+                    }
+                    size={25}
+                  />
+                </Button>
+                <Button
+                  className={`bg-transparent border-0 option ${
+                    selectedOption === "option3" ? "active" : ""
+                  }`}
+                  onClick={() => handleOptionClick("option3")}
+                >
+                  <VscAccount
+                    color={
+                      selectedOption === "option3" ? " #7126B5BF" : "#3C3C3C"
+                    }
+                    size={25}
+                  />
                 </Button>
               </>
             ) : (
