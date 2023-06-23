@@ -14,8 +14,14 @@ function GoogleLogin({ log }) {
       dispatch(registerLoginWithGoogle(responseGoogle.access_token, navigate)),
   });
   return (
-    <Button variant="primary" onClick={() => loginWithGoogle()}>
-      {log} with Google 🚀
+    <Button variant="outline-primary" onClick={() => loginWithGoogle()}>
+      <img
+        alt=""
+        src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-suite-everything-you-need-know-about-google-newest-0.png"
+        width="20"
+        style={{ marginRight: 8 + "px", marginBottom: 4 + "px" }}
+      />
+      {log}
     </Button>
   );
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Container, Card } from "react-bootstrap";
 import { FiSearch } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllAirports } from "../redux/actions/postActions";
 import "../assets/css/Des.css";
 
 const destinations = [
