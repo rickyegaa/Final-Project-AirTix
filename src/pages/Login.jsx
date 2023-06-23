@@ -5,7 +5,6 @@ import GoogleLogin from "../components/GoogleLogin";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { login } from "../redux/actions/authActions";
-
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 import "../assets/css/Login.css";
 
@@ -59,7 +58,7 @@ const Login = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Example: react@gmail.com"
-                  style={{ borderRadius: "15px", height: "50px" }}
+                  style={{ borderRadius: "5px", height: "50px" }}
                 />
               </Form.Group>
 
@@ -76,7 +75,7 @@ const Login = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Masukkan Password"
-                    style={{ borderRadius: "15px", height: "50px" }}
+                    style={{ borderRadius: "5px", height: "50px" }}
                   />
                   <InputGroup.Text onClick={togglePasswordVisibility}>
                     {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
@@ -94,8 +93,8 @@ const Login = () => {
                   </Link>
                 </Form.Text>
               </div>
-              <div className="text-center">
-                <GoogleLogin log={`Login`} />
+              <div className="text-center my-3">
+                <GoogleLogin log={`Login With Google`} />
               </div>
             </Form>
           </div>

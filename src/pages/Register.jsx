@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { Col, Container, Form, Row, InputGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { register } from "../redux/actions/authActions";
 import GoogleLogin from "../components/GoogleLogin";
-
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 import "../assets/css/Register.css";
 
@@ -55,6 +53,7 @@ const Register = () => {
         </Col>
         <Col className="d-flex justify-content-center align-items-center bg-body">
           <div className="w-75">
+            <br />
             <h3 className="title-register">Register</h3>
             <Form className="mt-4">
               <Form.Group className="mb-3">
@@ -64,7 +63,7 @@ const Register = () => {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Nama Lengkap"
-                  style={{ borderRadius: "15px", height: "50px" }}
+                  style={{ borderRadius: "5px", height: "50px" }}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -74,7 +73,7 @@ const Register = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Example: react@gmail.com"
-                  style={{ borderRadius: "15px", height: "50px" }}
+                  style={{ borderRadius: "5px", height: "50px" }}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
@@ -82,7 +81,7 @@ const Register = () => {
                 <Form.Control
                   type="text"
                   placeholder="+628"
-                  style={{ borderRadius: "15px", height: "50px" }}
+                  style={{ borderRadius: "5px", height: "50px" }}
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                 />
@@ -91,14 +90,11 @@ const Register = () => {
                 <Form.Label>Buat Password</Form.Label>
                 <InputGroup className="mb-3">
                   <Form.Control
-
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                 
                     placeholder="Buat Password"
-
-                    style={{ borderRadius: "15px", height: "50px" }}
+                    style={{ borderRadius: "5px", height: "50px" }}
                   />
                   <InputGroup.Text onClick={togglePasswordVisibility}>
                     {showPassword ? <BsFillEyeSlashFill /> : <BsFillEyeFill />}
@@ -116,8 +112,8 @@ const Register = () => {
                   </Link>
                 </Form.Text>
               </div>
-              <div className="text-center">
-                <GoogleLogin log={`Sign in`} />
+              <div className="text-center my-3">
+                <GoogleLogin log={`Register With Google`} />
               </div>
             </Form>
           </div>
