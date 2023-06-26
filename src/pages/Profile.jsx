@@ -1,6 +1,7 @@
 import React from "react";
 import { FiArrowLeft, FiEdit3, FiLogOut, FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import {
   Button,
   Card,
@@ -14,6 +15,7 @@ import {
 const Profile = () => {
   return (
     <>
+      <Navbar />
       <Container>
         <Row className="mt-5">
           <Col md={{ offset: 1 }}>

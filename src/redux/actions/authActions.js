@@ -15,7 +15,7 @@ export const logout = (navigate) => (dispatch) => {
   }
 };
 
-// ...Me...
+// ...Me (Whoami)...
 export const getMe =
   (navigate, navigatePath, navigatePathError) => async (dispatch, getState) => {
     try {
@@ -23,11 +23,14 @@ export const getMe =
 
       if (!token) return;
 
-      const response = await axios.get(`${process.env.REACT_APP_API}/whoami`, {
-        headers: {
-          Authorization: ` ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_API}/auth/whoami`,
+        {
+          headers: {
+            Authorization: ` ${token}`,
+          },
+        }
+      );
 
       const data = response.data.data;
 
@@ -49,40 +52,6 @@ export const getMe =
       toast.error(error.message);
     }
   };
-
-// ...Login...
-export const login = (data, navigate) => async (dispatch) => {
-  try {
-    let config = {
-      method: "post",
-      url: `${process.env.REACT_APP_API}/auth/login`,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      data: data,
-    };
-
-    const response = await axios.request(config);
-    const { token } = response.data.data;
-
-    toast.success("Login Successfull", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-    navigate("/");
-
-    dispatch(setToken(token));
-    dispatch(setIsLoggedIn(true));
-    dispatch(getMe(null, null, null));
-
-    navigate("/");
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      toast.error(error.response.data.message);
-      return;
-    }
-    toast.error(error.message);
-  }
-};
 
 // ...Register...
 export const register = (data, navigate) => async (dispatch) => {
@@ -108,7 +77,7 @@ export const register = (data, navigate) => async (dispatch) => {
     dispatch(setIsLoggedIn(true));
     dispatch(getMe(null, null, null));
 
-    navigate("/Login");
+    // Cek Kondisi Error
   } catch (error) {
     if (axios.isAxiosError(error)) {
       toast.error(error.response.data.message);
@@ -118,25 +87,40 @@ export const register = (data, navigate) => async (dispatch) => {
   }
 };
 
-// ...Verifikasi....
-// export const verify = () => async (getState) => {
-//   try {
-//     const { token } = getState().auth;
+// ...Login...
+export const login = (data, navigate) => async (dispatch) => {
+  try {
+    let config = {
+      method: "post",
+      url: `${process.env.REACT_APP_API}/auth/login`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: data,
+    };
 
-//     const result = await axios.post(
-//       `${process.env.REACT_APP_API}/auth/resend-otp`,
-//       {
-//         headers: {
-//           "Content-tpye": "application/json",
-//         },
-//       }
-//     );
-//     toast.success(result.data.message);
-//   } catch (error) {
-//     toast.error(error.response.data.message);
-//     throw error;
-//   }
-// };
+    const response = await axios.request(config);
+    const { token } = response.data.data;
+
+    toast.success("Login Successfull", {
+      position: toast.POSITION.TOP_RIGHT,
+    });
+
+    dispatch(setToken(token));
+    dispatch(setIsLoggedIn(true));
+    dispatch(getMe(null, null, null));
+
+    navigate("/");
+
+    // Cek Kondisi Error
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response.data.message);
+      return;
+    }
+    toast.error(error.message);
+  }
+};
 
 // ...Google Login (OAuth)...
 export const registerLoginWithGoogle =
@@ -159,6 +143,10 @@ export const registerLoginWithGoogle =
 
       const response = await axios.request(config);
       const { token } = response.data.data;
+
+      toast.success("LoggedIn Successfull", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
 
       dispatch(setToken(token));
       dispatch(setIsLoggedIn(true));

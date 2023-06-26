@@ -4,13 +4,14 @@ import Home from "./pages/Home";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
-import Riwayat from "./pages/Riwayat";
 import Verifikasi from "./pages/Verifikasi";
+import Riwayat from "./pages/Riwayat";
 import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import Notifikasi from "./pages/Notifikasi";
 import Profile from "./pages/Profile";
 import CariPenerbangan from "./pages/CariPenerbangan";
+import NoTokenAuth from "./components/NoTokenAuth";
 import Protected from "./components/Protected";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux";
@@ -26,15 +27,50 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Login" element={<Login />} />
-            <Route path="/Register" element={<Register />} />
-            <Route path="/ResetPassword" element={<ResetPassword />} />
+            <Route
+              path="/Login"
+              element={
+                <NoTokenAuth>
+                  <Login />
+                </NoTokenAuth>
+              }
+            />
+            <Route
+              path="/Register"
+              element={
+                <NoTokenAuth>
+                  <Register />
+                </NoTokenAuth>
+              }
+            />
+            <Route
+              path="/ResetPassword"
+              element={
+                <NoTokenAuth>
+                  <ResetPassword />
+                </NoTokenAuth>
+              }
+            />
+            <Route
+              path="/Verifikasi"
+              element={
+                <NoTokenAuth>
+                  <Verifikasi />
+                </NoTokenAuth>
+              }
+            />
             <Route path="/Riwayat" element={<Riwayat />} />
-            <Route path="/Verifikasi" element={<Verifikasi />} />
             <Route path="/Checkout" element={<Checkout />} />
             <Route path="/Payment" element={<Payment />} />
             <Route path="/Notifikasi" element={<Notifikasi />} />
-            <Route path="/CariPenerbangan" element={<CariPenerbangan />} />
+            <Route
+              path="/CariPenerbangan"
+              element={
+                <Protected>
+                  <CariPenerbangan />
+                </Protected>
+              }
+            />
             <Route
               path="/Profile"
               element={
