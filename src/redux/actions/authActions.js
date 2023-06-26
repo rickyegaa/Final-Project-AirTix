@@ -15,7 +15,6 @@ export const logout = (navigate) => (dispatch) => {
   }
 };
 
-
 // ...Me (Whoami)...
 export const getMe =
   (navigate, navigatePath, navigatePathError) => async (dispatch, getState) => {
@@ -23,15 +22,6 @@ export const getMe =
       const { token } = getState().auth;
 
       if (!token) return;
-      
-      const response = await axios.get(
-        `${process.env.REACT_APP_API}/auth/whoami`,
-        {
-          headers: {
-            Authorization: ` ${token}`,
-          },
-        }
-      );
 
       const response = await axios.get(`${process.env.REACT_APP_API}/whoami`, {
         headers: {
