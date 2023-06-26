@@ -27,14 +27,13 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route
-              path="/Login"
-              element={
+            <Route path="/Login" element={
                 <NoTokenAuth>
                   <Login />
-                </NoTokenAuth>
-              }
-            />
+                </NoTokenAuth>                           
+              } 
+             />
+            
             <Route
               path="/Register"
               element={
@@ -74,6 +73,7 @@ function App() {
             <Route
               path="/Profile"
               element={
+
                 <Protected>
                   <Profile />
                 </Protected>
