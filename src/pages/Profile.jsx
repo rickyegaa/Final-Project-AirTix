@@ -1,6 +1,7 @@
 import React from "react";
 import { FiArrowLeft, FiEdit3, FiLogOut, FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import Navbar from "../components/Navbar";
 import {
   Button,
   Card,
@@ -10,7 +11,6 @@ import {
   Row,
   Form,
 } from "react-bootstrap";
-import Navbar from "../components/Navbar";
 
 const Profile = () => {
   return (

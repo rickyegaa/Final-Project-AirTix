@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const AuthToken = ({ children }) => {
+const NoTokenAuth = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -14,6 +14,8 @@ const AuthToken = ({ children }) => {
             Authorization: `Bearer ${token}`,
           },
         });
+
+        window.location.href = "/";
       } catch (error) {
         if (axios.isAxiosError(error)) {
           // If not valid token
@@ -31,16 +33,12 @@ const AuthToken = ({ children }) => {
 
     const token = localStorage.getItem("token");
 
-    if (!token) {
-      toast.warning("Silakan Login dan Register");
-      return navigate("/login");
+    if (token) {
+      getProfile(token);
     }
-
-    // get user information
-    getProfile(token);
   }, [navigate]);
 
   return children;
 };
 
-export default AuthToken;
+export default NoTokenAuth;
