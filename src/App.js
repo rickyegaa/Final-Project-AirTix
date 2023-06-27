@@ -16,7 +16,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import store from "./redux/store";
-import Tes from "./pages/Tes";
 
 // import CariPenerbangan from "./pages/CariPenerbangan";
 // import Notifikasi from "./pages/Notifikasi";
@@ -59,7 +58,6 @@ function App() {
               }
             />
             <Route path="Verifikasi" element={<Verifikasi />} />
-            <Route path="Tes" element={<Tes />} />
             <Route path="Checkout" element={<Checkout />} />
             <Route path="Payment" element={<Payment />} />
 
