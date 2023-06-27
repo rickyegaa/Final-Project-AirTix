@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-import Banner from "../components/Banner";
+import Banner from "./Banner";
 import Des from "../components/Des";
 import { Container, Row, Col } from "react-bootstrap";
 

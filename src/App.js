@@ -16,10 +16,10 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import store from "./redux/store";
+import Tes from "./pages/Tes";
 
-import CariPenerbangan from "./pages/CariPenerbangan";
-import Notifikasi from "./pages/Notifikasi";
-
+// import CariPenerbangan from "./pages/CariPenerbangan";
+// import Notifikasi from "./pages/Notifikasi";
 
 function App() {
   return (
@@ -50,15 +50,22 @@ function App() {
 
             <Route path="Register" element={<Register />} />
             <Route path="ResetPassword" element={<ResetPassword />} />
-            <Route path="Riwayat" element={<Riwayat />} />
+            <Route
+              path="/Riwayat"
+              element={
+                <Protected>
+                  <Riwayat />
+                </Protected>
+              }
+            />
             <Route path="Verifikasi" element={<Verifikasi />} />
+            <Route path="Tes" element={<Tes />} />
             <Route path="Checkout" element={<Checkout />} />
             <Route path="Payment" element={<Payment />} />
 
             <Route path="Notifikasi" element={<Notifikasi />} />
 
             <Route path="CariPenerbangan" element={<CariPenerbangan />} />
-
           </Routes>
           <ToastContainer theme="colored" />
         </BrowserRouter>

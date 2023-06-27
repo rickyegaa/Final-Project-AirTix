@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { Container, Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Container } from "react-bootstrap";
 import { FiSearch } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllAirports } from "../redux/actions/postActions";
-import "../assets/css/Des.css";
+import "../components/Des.css";
 
 const destinations = [
   {
@@ -54,38 +52,24 @@ const destinations = [
 ];
 
 const DestinationCard = ({ destination }) => {
-  const dispatch = useDispatch();
-  const { airports } = useSelector((state) => state.post);
-
-  useEffect(() => {
-    dispatch(getAllAirports());
-  }, [dispatch]);
-
-  console.log(airports);
   return (
-    <Container>
-      {airports &&
-        airports?.length > 0 &&
-        airports.map((bandara, index) => (
-          <div className="card-dest">
-            <img
-              src={destination.foto}
-              alt={bandara.name}
-              className="destination-image"
-            />
-            <p className="name">
-              {bandara.dep_airport} - {bandara.arr_airport}
-            </p>
-            <p className="maskapai">{bandara.plane}</p>
-            <p className="price-description">
-              Mulai dari{" "}
-              <span className="price" style={{ color: "red" }}>
-                IDR {destination.price}
-              </span>
-            </p>
-          </div>
-        ))}
-    </Container>
+    <div className="card-dest">
+      <img
+        src={destination.foto}
+        alt={destination.name}
+        className="destination-image"
+      />
+      <p className="name">
+        {destination.name} - {destination.to}
+      </p>
+      <p className="maskapai">{destination.maskapai}</p>
+      <p className="price-description">
+        Mulai dari{" "}
+        <span className="price" style={{ color: "red" }}>
+          IDR {destination.price}
+        </span>
+      </p>
+    </div>
   );
 };
 

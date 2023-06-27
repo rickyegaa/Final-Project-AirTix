@@ -10,10 +10,12 @@ import {
   Row,
   Form,
 } from "react-bootstrap";
+import Navbar from "../components/Navbar";
 
 const Profile = () => {
   return (
     <>
+      <Navbar />
       <Container>
         <Row className="mt-5">
           <Col md={{ offset: 1 }}>

@@ -121,10 +121,10 @@ export const register = (data, navigate) => async (dispatch) => {
 // ...Verifikasi....
 // export const verify = () => async (getState) => {
 //   try {
-//     const { token } = getState().auth;
-
+//     const { otp } = getState().auth;
+//     console.log(otp)
 //     const result = await axios.post(
-//       `${process.env.REACT_APP_API}/auth/resend-otp`,
+//       `${process.env.REACT_APP_API}/auth/verify-otp`,
 //       {
 //         headers: {
 //           "Content-tpye": "application/json",
