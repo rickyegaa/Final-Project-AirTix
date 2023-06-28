@@ -16,7 +16,6 @@ const Profile = () => {
   return (
     <>
       <Navbar />
-
       <Container>
         <Row className="mt-5">
           <Col md={{ offset: 1 }}>

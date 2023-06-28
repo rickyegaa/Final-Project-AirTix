@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   token: localStorage.getItem("token") || null,
   isLoggedIn: !!localStorage.getItem("token"),
-  user: null,
+  user: [],
+  // otp: localStorage.getItem("otp") || null,
 };
 
 const authSlicer = createSlice({
@@ -19,6 +20,15 @@ const authSlicer = createSlice({
 
       state.token = action.payload;
     },
+    // setOTP: (state, action) => {
+    //   if (action.payload) {
+    //     localStorage.setItem("otp", action.payload);
+    //   } else {
+    //     localStorage.removeItem("otp");
+    //   }
+
+    //   state.token = action.payload;
+    // },
     setIsLoggedIn: (state, action) => {
       state.isLoggedIn = action.payload;
     },
@@ -28,6 +38,6 @@ const authSlicer = createSlice({
   },
 });
 
-export const { setToken, setIsLoggedIn, setUser } = authSlicer.actions;
+export const { setToken, setIsLoggedIn, setUser, setOTP } = authSlicer.actions;
 
 export default authSlicer.reducer;

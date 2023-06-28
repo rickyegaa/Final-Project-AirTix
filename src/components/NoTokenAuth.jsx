@@ -21,7 +21,7 @@ const NoTokenAuth = ({ children }) => {
           // If not valid token
           if (error.response.status === 401) {
             localStorage.removeItem("token");
-            toast.error(data.message);
+            // toast.error(data.message);
             return (window.location.href = "/");
           }
           toast.error(error.response.data.message);

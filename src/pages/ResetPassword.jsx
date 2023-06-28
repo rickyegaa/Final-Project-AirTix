@@ -78,6 +78,7 @@ const ResetPassword = () => {
               width: "300px",
               height: "200px",
             }}
+            alt="img"
           />
         </Col>
         <Col className="d-flex justify-content-center align-items-center bg-body">

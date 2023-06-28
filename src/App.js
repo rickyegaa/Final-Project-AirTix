@@ -27,13 +27,15 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/Login" element={
+            <Route
+              path="/Login"
+              element={
                 <NoTokenAuth>
                   <Login />
-                </NoTokenAuth>                           
-              } 
-             />
-            
+                </NoTokenAuth>
+              }
+            />
+
             <Route
               path="/Register"
               element={
@@ -58,7 +60,14 @@ function App() {
                 </NoTokenAuth>
               }
             />
-            <Route path="/Riwayat" element={<Riwayat />} />
+            <Route
+              path="/Riwayat"
+              element={
+                <Protected>
+                  <Riwayat />
+                </Protected>
+              }
+            />
             <Route path="/Checkout" element={<Checkout />} />
             <Route path="/Payment" element={<Payment />} />
             <Route path="/Notifikasi" element={<Notifikasi />} />
@@ -73,7 +82,6 @@ function App() {
             <Route
               path="/Profile"
               element={
-
                 <Protected>
                   <Profile />
                 </Protected>
