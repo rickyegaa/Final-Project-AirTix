@@ -3,45 +3,46 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { Col, Container, Form, Row, InputGroup } from "react-bootstrap";
 import "../assets/css/Login.css";
+// import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const EmailRequest = () => {
-  const [Email, setEmail] = useState("");
+  const [email, setEmail] = useState("");
   const navigate = useNavigate();
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-    let data = JSON.stringify({
-      email: "lambadya421@gmail.com",
-      //   Email,
-    });
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
     try {
-      let config = {
-        method: "post",
-        maxBodyLength: Infinity,
-        url: "",
+      const config = {
         headers: {
           "Content-Type": "application/json",
         },
-        data: data,
       };
+
+      const data = {
+        email: email,
+      };
+
       const response = await axios.post(
-        `https://airtix-develop.up.railway.app/auth/send-reset-password`,
+        `${process.env.REACT_APP_API}/auth/send-reset-password`,
         data,
         config
       );
-      console.log(response.data.message);
+
+      // Simpan token ke local storage
+      localStorage.setItem("token", response.data.token);
+
+      // Tampilkan pesan sukses jika berhasil
+      toast.success("Email reset password telah dikirim!");
       navigate("/ResetPassword");
     } catch (error) {
-      if (error.response) {
-        // Cek Jika terjadi error dari API
-        const { data } = error.response;
-        toast.error(data.message);
-      } else {
-        // Cek Jika terjadi error selain dari API
-        toast.error("Something went wrong");
-      }
+      // Cek Jika terjadi error dari API
+      toast.error("Gagal mengirim email reset password.");
     }
   };
 
@@ -71,18 +72,14 @@ const EmailRequest = () => {
                   <Form.Control
                     type={"email"}
                     placeholder="Masukkan Email Anda"
-                    value={Email}
+                    value={email}
                     style={{ borderRadius: "2px", height: "50px" }}
-                    onChange={(e) => setEmail(e.target.value)}
+                    onChange={handleEmailChange}
                   />
                 </InputGroup>
               </Form.Group>
 
-              <button
-                onClick={handleSubmit}
-                type="submit"
-                className="login w-100"
-              >
+              <button type="submit" className="login w-100">
                 Kirim
               </button>
             </Form>
