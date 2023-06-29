@@ -7,6 +7,8 @@ import { register } from "../redux/actions/authActions";
 import GoogleLogin from "../components/GoogleLogin";
 import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 import "../assets/css/Register.css";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const dispatch = useDispatch();
@@ -31,7 +33,32 @@ const Register = () => {
       phone,
       password,
     });
-
+    try {
+      let config = {
+        method: "post",
+        maxBodyLength: Infinity,
+        url: "",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        data: data,
+      };
+      const response = await axios.post(
+        `https://airtix-develop.up.railway.app/auth/resend-otp`,
+        data,
+        config
+      );
+      console.log(response.data.message);
+    } catch (error) {
+      if (error.response) {
+        // Cek Jika terjadi error dari API
+        const { data } = error.response;
+        toast.error(data.message);
+      } else {
+        // Cek Jika terjadi error selain dari API
+        toast.error("Something went wrong");
+      }
+    }
     dispatch(register(data, navigate));
   };
 

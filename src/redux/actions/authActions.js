@@ -68,7 +68,7 @@ export const register = (data, navigate) => async (dispatch) => {
     toast.success("Registered Successfull", {
       position: toast.POSITION.TOP_RIGHT,
     });
-    navigate("/Login");
+    navigate("/Verifikasi");
 
     dispatch(setToken(token));
     dispatch(setIsLoggedIn(true));

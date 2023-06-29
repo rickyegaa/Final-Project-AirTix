@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Container, Card } from "react-bootstrap";
+import { Container, Card, Button } from "react-bootstrap";
 import { FiSearch } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { getApiAirports } from "../redux/actions/postActions";
@@ -67,23 +67,37 @@ const DestinationCard = ({ destination }) => {
       {airports &&
         airports?.length > 0 &&
         airports.map((bandara, index) => (
-          <div className="card-dest">
-            <img
-              src={destination.foto}
-              alt={bandara.name}
-              className="destination-image"
-            />
-            <p className="name">
-              {bandara.dep_airport} - {bandara.arr_airport}
-            </p>
-            <p className="maskapai">{bandara.plane}</p>
-            <p className="price-description">
-              Mulai dari{" "}
-              <span className="price" style={{ color: "red" }}>
-                IDR {destination.price}
-              </span>
-            </p>
-          </div>
+          // <div className="card-dest">
+          //   <img
+          //     src={destination.foto}
+          //     alt={bandara.name}
+          //     className="destination-image"
+          //   />
+          //   <p className="name">
+          //     {bandara.dep_airport} - {bandara.arr_airport}
+          //   </p>
+          //   <p className="maskapai">{bandara.plane}</p>
+          //   <p className="price-description">
+          //     Mulai dari{" "}
+          //     <span className="price" style={{ color: "red" }}>
+          //       IDR {destination.price}
+          //     </span>
+          //   </p>
+          // </div>
+          <Card style={{ width: "18rem" }}>
+            <Card.Img variant="top" src="holder.js/100px180" />
+            <Card.Body>
+              <Card.Text>
+                {bandara?.dep_airport} - {bandara?.arr_airport}
+              </Card.Text>
+              <Card.Text>{bandara?.airport_type}</Card.Text>
+              <Card.Text>
+                {bandara?.departure_date} - {bandara?.arrival_date}
+              </Card.Text>
+              <Card.Text>{bandara?.ticket_price}</Card.Text>
+              <Button variant="primary">Go somewhere</Button>
+            </Card.Body>
+          </Card>
         ))}
     </Container>
   );

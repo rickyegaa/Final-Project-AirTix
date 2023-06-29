@@ -4,8 +4,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import { Container, Form, Button } from "react-bootstrap";
 import { IoArrowBack } from "react-icons/io5";
-import Navbar from "../components/Navbar";
-import "../assets/css/Verifikasi.css";
+ import "../assets/css/Verifikasi.css";
 
 const OTPVerification = () => {
   const [otp, setOTP] = useState("");
@@ -73,7 +72,6 @@ const OTPVerification = () => {
 
   return (
     <>
-      <Navbar />
       <Container fluid>
         <Link to="/Register">
           <p className="ms-5 fs-1 text-color">
