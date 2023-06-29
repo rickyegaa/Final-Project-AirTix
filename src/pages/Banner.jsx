@@ -61,7 +61,6 @@ function Banner() {
           <Card.Body>
             <Card.Text>
               <Bandara />
-              {/* ////////////////////////////////////////////////////////// */}
               <DateAndClass />
             </Card.Text>
           </Card.Body>
