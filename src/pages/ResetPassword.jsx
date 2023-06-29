@@ -6,15 +6,13 @@ import { BsFillEyeSlashFill, BsFillEyeFill } from "react-icons/bs";
 import "../assets/css/Login.css";
 
 const ResetPassword = () => {
-
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   const [showNewPassword, setShowNewPassword] = useState(false);
   const toggleNewPasswordVisibility = () => {
     setShowNewPassword(!showNewPassword);
   };
-
 
   const [showPassword, setShowPassword] = useState(false);
   const togglePasswordVisibility = () => {
@@ -51,6 +49,7 @@ const ResetPassword = () => {
         data,
         config
       );
+      console.log(response.data);
 
       toast.success(response.data.message);
     } catch (error) {
@@ -64,7 +63,7 @@ const ResetPassword = () => {
       }
     }
   };
-  
+
   return (
     <Container fluid className="vh-100">
       <Row className="h-100">

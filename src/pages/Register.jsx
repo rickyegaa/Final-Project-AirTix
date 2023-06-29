@@ -29,7 +29,7 @@ const Register = () => {
 
     let data = JSON.stringify({
       name,
-      email: "lmbdya421@gmail.com",
+      email,
       phone,
       password,
     });
