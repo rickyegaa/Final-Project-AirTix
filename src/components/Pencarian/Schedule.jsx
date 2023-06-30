@@ -1,9 +1,14 @@
 import React from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import "./pencarian.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Schedule = () => {
+
+  /**const location = useLocation();
+  const formData = location.state;
+  console.log(formData);**/
+
   return (
     <div className="bg-detail pt-5 pb-4">
       <Container className="">
@@ -19,17 +24,17 @@ const Schedule = () => {
                 <div className="d-flex h-100">
                   <Link to={"/"}>
                     <button className="bg-transparent border-0">
-                      <img src="../assets/img/fi_arrow-left.svg" alt="" />
+                      <img src="../img/fi_arrow-left.svg" alt="" />
                     </button>
                   </Link>
                   <div className=" d-flex  ">
-                    <h6 className="my-auto fw-semibold">JKT</h6>
+                    <h6 className="my-auto fw-semibold">{/*{formData.departure_airport}*/} JKT</h6>
                     <h6 className="mx-1 my-auto fw-semibold">-</h6>
-                    <h6 className="my-auto fw-semibold">MLB</h6>
+                    <h6 className="my-auto fw-semibold">{/*{formData.arrival_airport}*/}MLB</h6>
                     <h6 className="mx-1 my-auto fw-semibold">-</h6>
-                    <h6 className="my-auto fw-semibold">2 Penumpang</h6>
+                    <h6 className="my-auto fw-semibold">{/*{formData.passenger}*/}2 Penumpang</h6>
                     <h6 className="mx-1 my-auto fw-semibold">-</h6>
-                    <h6 className="my-auto fw-semibold">Economy</h6>
+                    <h6 className="my-auto fw-semibold">{/*{formData.seat_type}*/}Ekonomi</h6>
                   </div>
                 </div>
               </Col>
