@@ -4,6 +4,7 @@ import { Button, Form, Modal } from "react-bootstrap";
 import "../assets/css/Banner.css";
 import { MdOutlineDateRange } from "react-icons/md";
 import { MdOutlineAirlineSeatReclineNormal } from "react-icons/md";
+import { DatePicker } from "antd";
 
 function DateAndClass() {
   const [showPassenger, setShowPassenger] = useState(false);
@@ -14,6 +15,8 @@ function DateAndClass() {
   const [isEnabled, setIsEnabled] = useState(false);
   const [sum, setSum] = useState(0);
   const [selectedOptionSeat, setSelectedOptionSeat] = useState(null);
+  const [dateFrom, setDateFrom] = useState([]);
+  const [dateTo, setDateTo] = useState([]);
 
   const handleOptionClickSeat = (option) => {
     setSelectedOptionSeat(option);
@@ -67,9 +70,9 @@ function DateAndClass() {
   };
   return (
     <>
-      <Form className="inputSchedule gap-3 align-items-center justify-content-center  ">
+      <Form className="inputSchedule gap-3 align-items-center justify-content-between  ">
         <Form.Group
-          className="gap-3 mb-3 d-flex align-items-center justify-content-between"
+          className="gap-2 mb-3 d-flex align-items-center justify-content-between"
           controlId="formBasicEmail"
         >
           <Form.Group>
@@ -77,24 +80,39 @@ function DateAndClass() {
             <Form.Label>Date</Form.Label>
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group
+            className="d-grid"
+            style={{ width: "100%", maxWidth: "400px" }}
+          >
             <Form.Label>Departure</Form.Label>
 
-            <Form.Control
-              type="date"
-              // value={selectedDate}
-              // onChange={handleDateChange}
+            <DatePicker
+              style={{ width: "100%" }}
+              onChange={(tanggal) => {
+                // console.log(tanggal[0]);
+                // console.log(tanggal[1]);
+                setDateFrom(tanggal[0]);
+                setDateTo(tanggal[1]);
+              }}
             />
             {/* <p>Selected Date: {selectedDate}</p> */}
           </Form.Group>
 
-          <Form.Group>
+          <Form.Group
+            className="d-grid"
+            style={{ width: "100%", maxWidth: "4000px" }}
+          >
             <Form.Label>Return</Form.Label>
-
-            <Form.Control
-              type="date"
+            <DatePicker
+              style={{ width: "100%" }}
+              onChange={(tanggal) => {
+                // console.log(tanggal[0]);
+                // console.log(tanggal[1]);
+                setDateFrom(tanggal[0]);
+                setDateTo(tanggal[1]);
+              }}
               disabled={!isEnabled}
-              placeholder={isEnabled ? "Input enabled" : "Input disabled"}
+              placeholder={isEnabled ? "Select Date" : "Input disabled"}
             />
           </Form.Group>
 

@@ -1,184 +1,184 @@
 import React, { useEffect, useState } from "react";
-import { Container, Card, Button } from "react-bootstrap";
+import { Container, Card, Button, Col, Row } from "react-bootstrap";
 import { FiSearch } from "react-icons/fi";
-import { useDispatch, useSelector } from "react-redux";
-import { getApiAirports } from "../redux/actions/postActions";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getMockApi } from "../redux/actions/postActions";
 import "../assets/css/Des.css";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const destinations = [
-  {
-    id: 1,
-    name: "Jakarta",
-    to: "Sydney",
-    region: "Asia",
-    maskapai: "AirAsia",
-    foto: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    price: "950.000",
-  },
-  {
-    id: 2,
-    name: "New York",
-    to: "Paris",
-    region: "Amerika",
-    maskapai: "AirAsia",
-    foto: "https://s.id/1LTIx",
-    price: "2.650.000",
-  },
-  {
-    id: 3,
-    name: "Sydney",
-    to: "Jakarta",
-    region: "Australia",
-    maskapai: "AirAsia",
-    foto: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    price: "950.000",
-  },
-  {
-    id: 4,
-    name: "Paris",
-    to: "New York",
-    region: "Eropa",
-    maskapai: "AirAsia",
-    foto: "https://s.id/1LTJd",
-    price: "2.650.000",
-  },
-  {
-    id: 5,
-    name: "Cape Town",
-    to: "Sydney",
-    region: "Afrika",
-    maskapai: "AirAsia",
-    foto: "https://images.unsplash.com/photo-1555899434-94d1368aa7af?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80",
-    price: "950.000",
-  },
-];
+const DestinationCard = () => {
+  const [mock, setMock] = useState([]);
+  const [filteredData, setFilteredData] = useState("Semua");
+  const [activeButton, setActiveButton] = useState("Semua");
 
-const DestinationCard = ({ destination }) => {
-  const dispatch = useDispatch();
-  const { airports } = useSelector((state) => state.post);
-
-  useEffect(() => {
-    dispatch(getApiAirports());
-  }, [dispatch]);
-
-  console.log(airports);
-  return (
-    <Container>
-      {airports &&
-        airports?.length > 0 &&
-        airports.map((bandara, index) => (
-          // <div className="card-dest">
-          //   <img
-          //     src={destination.foto}
-          //     alt={bandara.name}
-          //     className="destination-image"
-          //   />
-          //   <p className="name">
-          //     {bandara.dep_airport} - {bandara.arr_airport}
-          //   </p>
-          //   <p className="maskapai">{bandara.plane}</p>
-          //   <p className="price-description">
-          //     Mulai dari{" "}
-          //     <span className="price" style={{ color: "red" }}>
-          //       IDR {destination.price}
-          //     </span>
-          //   </p>
-          // </div>
-          <Card style={{ width: "18rem" }}>
-            <Card.Img variant="top" src="holder.js/100px180" />
-            <Card.Body>
-              <Card.Text>
-                {bandara?.dep_airport} - {bandara?.arr_airport}
-              </Card.Text>
-              <Card.Text>{bandara?.airport_type}</Card.Text>
-              <Card.Text>
-                {bandara?.departure_date} - {bandara?.arrival_date}
-              </Card.Text>
-              <Card.Text>{bandara?.ticket_price}</Card.Text>
-              <Button variant="primary">Go somewhere</Button>
-            </Card.Body>
-          </Card>
-        ))}
-    </Container>
-  );
-};
-
-const App = () => {
-  const [selectedRegion, setSelectedRegion] = useState("Semua");
-  const [buttonColors, setButtonColors] = useState({ Semua: "#7126B5" });
-
-  const handleRegionClick = (region) => {
-    setSelectedRegion(region);
-    setButtonColors({ [region]: "#7126B5" });
+  const getButtonStyle = (button) => {
+    return {
+      backgroundColor: activeButton === button ? "#7126B5" : "#E2D4F0",
+      color: activeButton === button ? "white" : "#3C3C3C",
+    };
   };
 
-  const filteredDestinations =
-    selectedRegion === "Semua"
-      ? destinations
-      : destinations.filter((dest) => dest.region === selectedRegion);
+  // const dispatch = useDispatch();
+  // const { mock } = useSelector((state) => state.post);
 
+  // useEffect(() => {
+  //   dispatch(getMockApi());
+  // }, [dispatch]);
+
+  useEffect(() => {
+    async function getAPI() {
+      try {
+        const response = await axios.get(
+          `https://648313a9f2e76ae1b95be96f.mockapi.io/airport`
+        );
+        setMock(response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error.response.data.message);
+          return;
+        }
+        toast.error(error.message);
+      }
+    }
+    getAPI();
+  }, []);
+  const dayFormatter = new Intl.DateTimeFormat("id-id", { dateStyle: "long" });
+
+  const handleFilter = (airportType) => {
+    setFilteredData(airportType);
+    setActiveButton(airportType);
+  };
+
+  const renderDataMap = () => {
+    if (filteredData === "Semua") {
+      return mock.map((bandara) => {
+        return (
+          <Col className="d-flex justify-content-center mt-3">
+            <Card key={bandara.id} style={{ width: "14rem" }}>
+              <Card.Img variant="top" src={`${bandara?.photo}`} />
+              <Card.Body>
+                <Card.Text>
+                  <b>{bandara?.dep_airport}</b> -&gt;
+                  <b>{bandara?.arr_airport}</b>
+                </Card.Text>
+
+                <Card.Text style={{ color: "#7126B5", fontSize: "12px" }}>
+                  <b>{bandara?.airport_type}</b>
+                </Card.Text>
+
+                <Card.Text style={{ fontSize: "12px" }}>
+                  {dayFormatter.format(new Date(bandara?.departure_date))} -&gt;{" "}
+                  {dayFormatter.format(new Date(bandara?.arrival_date))}
+                </Card.Text>
+
+                <Card.Text>
+                  Mulai Dari&nbsp;
+                  <b>
+                    <span style={{ color: "#FF0000" }}>
+                      IDR&nbsp;{bandara?.ticket_price}
+                    </span>
+                  </b>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        );
+      });
+    } else {
+      const data = mock.filter((item) => item.airport_type === filteredData);
+      return data.map((bandara) => {
+        return (
+          <Col className="d-flex justify-content-center mt-3">
+            <Card key={bandara.id} style={{ width: "14rem" }}>
+              <Card.Img variant="top" src={`${bandara?.photo}`} />
+              <Card.Body>
+                <Card.Text>
+                  <b>{bandara?.dep_airport}</b> -&gt;
+                  <b>{bandara?.arr_airport}</b>
+                </Card.Text>
+
+                <Card.Text style={{ color: "#7126B5", fontSize: "12px" }}>
+                  <b>{bandara?.airport_type}</b>
+                </Card.Text>
+
+                <Card.Text style={{ fontSize: "12px" }}>
+                  {dayFormatter.format(new Date(bandara?.departure_date))} -&gt;{" "}
+                  {dayFormatter.format(new Date(bandara?.arrival_date))}
+                </Card.Text>
+
+                <Card.Text>
+                  Mulai Dari&nbsp;
+                  <b>
+                    <span style={{ color: "#FF0000" }}>
+                      IDR&nbsp;{bandara?.ticket_price}
+                    </span>
+                  </b>
+                </Card.Text>
+              </Card.Body>
+            </Card>
+          </Col>
+        );
+      });
+    }
+  };
   return (
-    <Container className="mt-2">
-      <h6 className="destinasi-heading">
-        <b>Destinasi Favorit</b>
-      </h6>
-      <container className="region-buttons">
-        <button
-          className={selectedRegion === "Semua" ? "active" : ""}
-          style={{ backgroundColor: buttonColors["Semua"] }}
-          onClick={() => handleRegionClick("Semua")}
-        >
-          <FiSearch className="button-icon" />
-          Semua
-        </button>
-        <button
-          className={selectedRegion === "Asia" ? "active" : ""}
-          style={{ backgroundColor: buttonColors["Asia"] }}
-          onClick={() => handleRegionClick("Asia")}
-        >
-          <FiSearch className="button-icon" />
-          Asia
-        </button>
-        <button
-          className={selectedRegion === "Amerika" ? "active" : ""}
-          style={{ backgroundColor: buttonColors["Amerika"] }}
-          onClick={() => handleRegionClick("Amerika")}
-        >
-          <FiSearch className="button-icon" />
-          Amerika
-        </button>
-        <button
-          className={selectedRegion === "Australia" ? "active" : ""}
-          style={{ backgroundColor: buttonColors["Australia"] }}
-          onClick={() => handleRegionClick("Australia")}
-        >
-          <FiSearch className="button-icon" />
-          Australia
-        </button>
-        <button
-          className={selectedRegion === "Eropa" ? "active" : ""}
-          style={{ backgroundColor: buttonColors["Eropa"] }}
-          onClick={() => handleRegionClick("Eropa")}
-        >
-          <FiSearch className="button-icon" />
-          Eropa
-        </button>
-        <button
-          className={selectedRegion === "Afrika" ? "active" : ""}
-          style={{ backgroundColor: buttonColors["Afrika"] }}
-          onClick={() => handleRegionClick("Afrika")}
-        >
-          <FiSearch className="button-icon" />
-          Afrika
-        </button>
-      </container>
-      <Container className="destination-cards">
-        {filteredDestinations.slice(0, 5).map((destination) => (
-          <DestinationCard key={destination.id} destination={destination} />
-        ))}
-      </Container>
+    <Container>
+      <Row className="d-grid">
+        <Col className="region-buttons mt-3 ">
+          <Button
+            className="ms-2 me-2 mt-2"
+            style={getButtonStyle("Semua")}
+            onClick={() => handleFilter("Semua")}
+          >
+            <FiSearch className="button-icon" />
+            Semua
+          </Button>
+          <Button
+            className="ms-2 me-2 mt-2"
+            style={getButtonStyle("Brown bear")}
+            onClick={() => handleFilter("Brown bear")}
+          >
+            <FiSearch className="button-icon" />
+            Asia
+          </Button>
+          <Button
+            className="ms-2 me-2 mt-2"
+            style={getButtonStyle("Sun bear")}
+            onClick={() => handleFilter("Sun bear")}
+          >
+            <FiSearch className="button-icon" />
+            Amerika
+          </Button>
+          <Button
+            className="ms-2 me-2 mt-2"
+            style={getButtonStyle("Sloth bear")}
+            onClick={() => handleFilter("Sloth bear")}
+          >
+            <FiSearch className="button-icon" />
+            Australia
+          </Button>
+          <Button
+            className="ms-2 me-2 mt-2"
+            style={getButtonStyle("Giant panda")}
+            onClick={() => handleFilter("Giant panda")}
+          >
+            <FiSearch className="button-icon" />
+            Eropa
+          </Button>
+          <Button
+            className="ms-2 me-2 mt-2"
+            style={getButtonStyle("Polar bear")}
+            onClick={() => handleFilter("Polar bear")}
+          >
+            <FiSearch className="button-icon" />
+            Afrika
+          </Button>
+        </Col>
+      </Row>
+      <Row>{renderDataMap()}</Row>
     </Container>
   );
 };
 
-export default App;
+export default DestinationCard;
