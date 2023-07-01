@@ -13,7 +13,7 @@ const ModalFilter = () => {
         onClick={handleShow}
         className=" border rounded-4  py-2 px-3 d-flex align-items-center"
       >
-        <img src="../assets/img/arrow-filter.svg" alt="" />
+        <img src="../img/arrow-filter.svg" alt="" />
         <h6 className="my-auto text-purple">Termurah</h6>
       </button>
       <Modal show={show} onHide={handleClose}>

@@ -1,38 +1,55 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Accordion } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
+import { getApiAirports } from "../../redux/actions/postActions";
 
 const ResultSearch = () => {
+
+  const dispatch = useDispatch();
+  const { airports } = useSelector((state) => state.post);
+
+  useEffect(() => {
+    dispatch(getApiAirports());
+  }, [dispatch]);
+
+  console.log(airports);
+
   return (
     <Accordion className="my-3">
+      {airports &&
+      airports?.length > 0 &&
+      airports.map((bandara, index) =>(
       <Accordion.Item eventKey="0">
         <Accordion.Header>
-          <div>
+          <div className=" mb-3">
             <div className="d-flex flex-row">
-              <img src="../assets/img/logo_leaf.svg" alt="" />
-              <h6 className="fw-semibold fs-12 my-auto ms-2">Jet Air</h6>
+              <img src="../img/logo_leaf.svg" alt="" />
+              <h6 className="fw-semibold fs-12 my-auto ms-2">
+                {bandara.name}
+              </h6>
               <h6 className="fw-semibold fs-12 my-auto mx-2">-</h6>
-              <h6 className="fw-semibold fs-12 my-auto ">Economy</h6>
+              <h6 className="fw-semibold fs-12 my-auto ">{bandara.airport_type}</h6>
             </div>
             <div className="d-flex">
               <div className="my-auto">
-                <h6 className="fw-semibold fs-14 ">07:00</h6>
-                <h6 className="fw-semibold fs-12 ">JKT</h6>
+                <h6 className="fw-semibold fs-14 ">{bandara.createdAt}</h6>
+                <h6 className="fw-semibold fs-12 ">{bandara.city}</h6>
               </div>
               <div className="d-flex flex-column">
-                <h6 className="fs-12 mx-auto">4h 0m</h6>
-                <img src="../assets/img/arrow.svg" alt="" />
-                <h6 className="fs-12 mt-2 mx-auto">Direct</h6>
+                <h6 className="fs-12 mx-auto">{bandara.state}</h6>
+                <img src="../img/arrow.svg" alt="" />
+                <h6 className="fs-12 mt-2 mx-auto">{bandara.code}</h6>
               </div>
               <div className="my-auto">
-                <h6 className="fw-semibold fs-14 ">11:00</h6>
-                <h6 className="fw-semibold fs-12 ">MLB</h6>
+                <h6 className="fw-semibold fs-14 ">{bandara.createdAt}</h6>
+                <h6 className="fw-semibold fs-12 ">{bandara.city}</h6>
               </div>
               <div className="d-flex">
                 <div className=" my-auto mx-5">
-                  <img src="../assets/img/baggage.svg" alt="" />
+                  <img src="../img/baggage.svg" alt="" />
                 </div>
                 <div className="d-flex flex-column">
-                  <h5 className="text-purple fw-semibold">IDR 4.950.000</h5>
+                  <h5 className="text-purple fw-semibold">IDR {bandara.price}</h5>
                   <button className="bg-purple rounded-4 py-2 text-white fw-semibold">
                     Pilih
                   </button>
@@ -62,7 +79,7 @@ const ResultSearch = () => {
           <div className="border-bottom w-50 mx-auto my-2"></div>
           <div className="d-flex">
             <div className="me-2 my-auto">
-              <img src="../assets/img/logo_leaf.svg" alt="" />
+              <img src="../img/logo_leaf.svg" alt="" />
             </div>
             <div className="d-flex flex-column">
               <div>
@@ -103,7 +120,9 @@ const ResultSearch = () => {
           </div>
         </Accordion.Body>
       </Accordion.Item>
+      ))}
     </Accordion>
+
   );
 };
 
