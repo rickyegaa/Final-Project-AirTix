@@ -18,6 +18,7 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import store from "./redux/store";
 import EmailRequest from "./pages/EmailRequest";
+import Gabut from "./pages/Gabut";
 
 function App() {
   return (
@@ -70,6 +71,7 @@ function App() {
               }
             />
             <Route path="/Checkout" element={<Checkout />} />
+            <Route path="/Gabut" element={<Gabut />} />
             <Route path="/EmailRequest" element={<EmailRequest />} />
             <Route path="/Payment" element={<Payment />} />
             <Route path="/Notifikasi" element={<Notifikasi />} />

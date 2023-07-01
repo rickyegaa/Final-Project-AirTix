@@ -78,8 +78,8 @@ function Riwayat() {
               <Form.Label>Pilih Tanggal: &nbsp;</Form.Label>
               <RangePicker
                 onChange={(tanggal) => {
-                  console.log(tanggal[0]);
-                  console.log(tanggal[1]);
+                  // console.log(tanggal[0]);
+                  // console.log(tanggal[1]);
                   setDateFrom(tanggal[0]);
                   setDateTo(tanggal[1]);
                 }}
