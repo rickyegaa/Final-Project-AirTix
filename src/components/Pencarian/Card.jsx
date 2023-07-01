@@ -13,10 +13,10 @@ const CardFilter = () => {
           <ListGroup variant="flush">
             <button className=" bg-transparent border-0">
               <div className="d-flex py-2 border-bottom">
-                <img src="../assets/img/fi_box.svg" alt="" />
+                <img src="../img/fi_box.svg" alt="" />
                 <h6 className="my-auto ms-2 fw-normal">Transit</h6>
                 <img
-                  src="../assets/img/fi_chevron-right.svg"
+                  src="../img/fi_chevron-right.svg"
                   alt=""
                   className="ms-auto"
                 />
@@ -24,10 +24,10 @@ const CardFilter = () => {
             </button>
             <button className=" bg-transparent border-0">
               <div className="d-flex py-2 border-bottom  bg-transparent border-0">
-                <img src="../assets/img/fi_heart.svg" alt="" />
+                <img src="../img/fi_heart.svg" alt="" />
                 <h6 className="my-auto ms-2 fw-normal">Fasilitas</h6>
                 <img
-                  src="../assets/img/fi_chevron-right.svg"
+                  src="../img/fi_chevron-right.svg"
                   alt=""
                   className="ms-auto"
                 />
@@ -35,10 +35,10 @@ const CardFilter = () => {
             </button>
             <button className=" bg-transparent border-0">
               <div className="d-flex py-2  bg-transparent border-0 ">
-                <img src="../assets/img/fi_dollar-sign.svg" alt="" />
+                <img src="../img/fi_dollar-sign.svg" alt="" />
                 <h6 className="my-auto ms-2 fw-normal">Harga</h6>
                 <img
-                  src="../assets/img/fi_chevron-right.svg"
+                  src="../img/fi_chevron-right.svg"
                   alt=""
                   className="ms-auto"
                 />

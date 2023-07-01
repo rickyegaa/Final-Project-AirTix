@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import Navbar from "../components/Navbar";
 import Schedule from "../components/Pencarian/Schedule";
 import ResultSearch from "../components/Pencarian/ResultSearch";
@@ -24,7 +24,7 @@ const CariPenerbangan = () => {
             <CardFilter />
           </Col>
           <Col sm={7}>
-            
+              <ResultSearch />
           </Col>
           <Col></Col>
         </Row>
