@@ -51,7 +51,7 @@ function InputBandara() {
 
   return (
     <>
-      <Form className="d-flex gap-3 align-items-center justify-content-center ">
+      <Form className="d-flex gap-3 align-items-center justify-content-between ">
         <Form.Group
           className=" mb-3 d-flex align-items-center justify-content-between"
           controlId="formBasicEmail"

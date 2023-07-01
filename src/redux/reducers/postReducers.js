@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   airports: null,
   tickets: null,
+  mock: null,
 };
 
 const postSlicer = createSlice({
@@ -15,8 +16,11 @@ const postSlicer = createSlice({
     setTickets: (state, action) => {
       state.tickets = action.payload;
     },
+    setMock: (state, action) => {
+      state.mock = action.payload;
+    },
   },
 });
 
-export const { setAirports, setTickets } = postSlicer.actions;
+export const { setAirports, setTickets,setMock } = postSlicer.actions;
 export default postSlicer.reducer;
