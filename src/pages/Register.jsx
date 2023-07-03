@@ -58,7 +58,6 @@ const Register = () => {
     //     toast.error("Something went wrong");
     //   }
     // }
-
     dispatch(register(data, navigate));
   };
 

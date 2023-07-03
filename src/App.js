@@ -10,7 +10,6 @@ import Checkout from "./pages/Checkout";
 import Payment from "./pages/Payment";
 import Notifikasi from "./pages/Notifikasi";
 import Profile from "./pages/Profile";
-import CariPenerbangan from "./pages/CariPenerbangan";
 import NoTokenAuth from "./components/NoTokenAuth";
 import Protected from "./components/Protected";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -19,6 +18,7 @@ import { ToastContainer } from "react-toastify";
 import store from "./redux/store";
 import EmailRequest from "./pages/EmailRequest";
 import Gabut from "./pages/Gabut";
+import SearchPage from "./pages/SearchPage/SearchPage";
 
 function App() {
   return (
@@ -75,14 +75,9 @@ function App() {
             <Route path="/EmailRequest" element={<EmailRequest />} />
             <Route path="/Payment" element={<Payment />} />
             <Route path="/Notifikasi" element={<Notifikasi />} />
-            <Route
-              path="/CariPenerbangan"
-              element={
-                <Protected>
-                  <CariPenerbangan />
-                </Protected>
-              }
-            />
+            {/* <Route path="/SearchPage" element={<SearchPage />} /> */}
+
+            <Route path="/SearchPage" element={<SearchPage />} />
             <Route
               path="/Profile"
               element={
