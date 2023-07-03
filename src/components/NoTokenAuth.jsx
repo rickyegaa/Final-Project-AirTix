@@ -1,6 +1,6 @@
-import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 import { toast } from "react-toastify";
 
 const NoTokenAuth = ({ children }) => {
@@ -18,14 +18,11 @@ const NoTokenAuth = ({ children }) => {
         window.location.href = "/";
       } catch (error) {
         if (axios.isAxiosError(error)) {
+          // If not valid token
           if (error.response.status === 401) {
-            if (error.response.data.message === "Token JWT Expired") {
-              RefreshToken();
-            } else {
-              localStorage.removeItem("token");
-              toast.error("Invalid Token");
-              return (window.location.href = "/");
-            }
+            localStorage.removeItem("token");
+            // toast.error(data.message);
+            return (window.location.href = "/");
           }
           toast.error(error.response.data.message);
           return;
@@ -42,39 +39,6 @@ const NoTokenAuth = ({ children }) => {
   }, [navigate]);
 
   return children;
-};
-
-const RefreshToken = () => {
-  const refresh_token = localStorage.getItem("refresh_token");
-
-  let data = JSON.stringify({
-    refreshToken: refresh_token,
-  });
-
-  let config = {
-    method: "post",
-    maxBodyLength: Infinity,
-    url: `${process.env.REACT_APP_API}/auth/refresh-token`,
-    headers: {
-      "Content-Type": "application/json",
-    },
-    data: data,
-  };
-
-  async function makeRequest() {
-    try {
-      const response = await client.request(config);
-      console.log(JSON.stringify(response.data));
-
-      const { access_token } = response.data.data;
-
-      localStorage.setItem("token", access_token);
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  makeRequest();
 };
 
 export default NoTokenAuth;
