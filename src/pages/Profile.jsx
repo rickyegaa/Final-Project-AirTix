@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
 import { FiArrowLeft, FiEdit3, FiLogOut, FiSettings } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
@@ -13,6 +14,32 @@ import {
 } from "react-bootstrap";
 
 const Profile = () => {
+  const [dataUser, setDataUser] = useState("");
+
+  useEffect(() => {
+    const getProfile = async () => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const response = await axios.get(
+          `${process.env.REACT_APP_API}/auth/whoami`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        const data = response.data.data.user;
+        setDataUser(data);
+      } catch (error) {
+        console.log(error.message);
+      }
+    };
+
+    getProfile();
+  }, []);
+
   return (
     <>
       <Navbar />
@@ -111,7 +138,7 @@ const Profile = () => {
                       >
                         Nama Lengkap
                       </Form.Label>
-                      <Form.Control type="text" placeholder="react" />
+                      <Form.Control type="text" value={dataUser?.name} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label
@@ -120,7 +147,7 @@ const Profile = () => {
                       >
                         Nomor Telepon
                       </Form.Label>
-                      <Form.Control type="phone" placeholder="+62 987654321" />
+                      <Form.Control type="email" value={dataUser?.email} />
                     </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                       <Form.Label

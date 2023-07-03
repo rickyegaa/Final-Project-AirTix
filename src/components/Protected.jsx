@@ -1,6 +1,6 @@
+import axios from "axios";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import { toast } from "react-toastify";
 
 const AuthToken = ({ children }) => {
@@ -16,10 +16,11 @@ const AuthToken = ({ children }) => {
         });
       } catch (error) {
         if (axios.isAxiosError(error)) {
-          // If not valid token
           if (error.response.status === 401) {
             localStorage.removeItem("token");
-            // toast.error(data.message);
+
+            toast.error("Invalid Token");
+
             return (window.location.href = "/");
           }
           toast.error(error.response.data.message);
@@ -31,12 +32,12 @@ const AuthToken = ({ children }) => {
 
     const token = localStorage.getItem("token");
 
+    // Cek Kondisi Ketika User Belum Login
     if (!token) {
       toast.warning("Silakan Login dan Register");
       return navigate("/login");
     }
 
-    // get user information
     getProfile(token);
   }, [navigate]);
 
