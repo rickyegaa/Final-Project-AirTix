@@ -4,6 +4,7 @@ const initialState = {
   airports: null,
   tickets: null,
   mock: null,
+  orders: null,
 };
 
 const postSlicer = createSlice({
@@ -19,8 +20,12 @@ const postSlicer = createSlice({
     setMock: (state, action) => {
       state.mock = action.payload;
     },
+    setOrders: (state, action) => {
+      state.orders = action.payload;
+    },
   },
 });
 
-export const { setAirports, setTickets,setMock } = postSlicer.actions;
+export const { setAirports, setTickets, setMock, setOrders } =
+  postSlicer.actions;
 export default postSlicer.reducer;

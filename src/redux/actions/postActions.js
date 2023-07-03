@@ -46,3 +46,25 @@ export const getMockApi = () => async (dispatch) => {
     toast.error(error.message);
   }
 };
+export const getOrderDetails = () => async (getState, dispatch) => {
+  try {
+    const { token } = getState().auth;
+
+    const response = await axios.get(
+      `https://airtix-develop.up.railway.app/orders-user/`,
+      {
+        headers: {
+          Authorization: ` ${token}`,
+        },
+      }
+    );
+    dispatch(setMock(response.data));
+    console.log(setAirports(response.data.data));
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      toast.error(error.response.data.message);
+      return;
+    }
+    toast.error(error.message);
+  }
+};

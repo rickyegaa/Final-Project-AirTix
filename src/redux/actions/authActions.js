@@ -30,6 +30,7 @@ export const getMe =
       });
 
       const data = response.data.data;
+      console.log(data);
 
       dispatch(setUser(data));
 
@@ -128,10 +129,10 @@ export const registerLoginWithGoogle =
       });
 
       let config = {
-        method: "post",
+        method: "get",
         maxBodyLength: Infinity,
         //This API from Fahmi AlFareza temporary!
-        url: `https://km4-challenge-5-api.up.railway.app/api/v1/auth/google`,
+        url: `https://7274-182-253-127-199.ngrok-free.app/auth/oauth`,
         headers: {
           "Content-Type": "application/json",
         },

@@ -9,6 +9,9 @@ import { getTicketDetails } from "../redux/actions/postActions";
 import RiwayatKosong from "../components/RiwayatKosong";
 import RiwayatTersedia from "../components/RiwayatTersedia";
 import { DatePicker } from "antd";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 // import moment from "moment";
 
 const { RangePicker } = DatePicker;
@@ -18,22 +21,74 @@ function Riwayat() {
   const [showSearch, setShowSearch] = useState(false);
   const [dateFrom, setDateFrom] = useState([]);
   const [dateTo, setDateTo] = useState([]);
+  const [tickets, setTickets] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [filteredData, setFilteredData] = useState([]);
 
-  // console.log(date);
+  useEffect(() => {
+    async function getTicketDetails() {
+      try {
+        const response = await axios.get(
+          `https://648313a9f2e76ae1b95be96f.mockapi.io/tiket`
+        );
+        setTickets(response.data);
+      } catch (error) {
+        if (axios.isAxiosError(error)) {
+          toast.error(error.response.data.message);
+          return;
+        }
+        toast.error(error.message);
+      }
+    }
+    getTicketDetails();
+  }, []);
+  const handleSearch = (event) => {
+    event.preventDefault();
+    setSearchTerm(event.target.value);
+  };
 
   const handleCloseFilter = () => setShowFilter(false);
   const handleShowFilter = () => setShowFilter(true);
   const handleCloseSearch = () => setShowSearch(false);
   const handleShowSearch = () => setShowSearch(true);
-  const dispatch = useDispatch();
-  const { tickets } = useSelector((state) => state.post);
 
-  useEffect(() => {
-    dispatch(getTicketDetails());
-  }, [dispatch]);
+  const rawDate = dateFrom;
+  const formattedDate = formatDate(rawDate);
 
-  //   const handleClick = () => {
-  //   };
+  console.log(formattedDate);
+
+  function formatDate(date) {
+    const options = { day: "2-digit", month: "2-digit", year: "numeric" };
+    const formatted = new Intl.DateTimeFormat("en", options).format(date);
+    return formatted;
+  }
+  const handleStartDateChange = (event) => {
+    const value = event.target.value;
+    setStartDate(value);
+    filterData(value, endDate);
+  };
+
+  const handleEndDateChange = (event) => {
+    const value = event.target.value;
+    setEndDate(value);
+    filterData(startDate, value);
+  };
+
+  const filterData = (start, end) => {
+    const filteredItems = tickets.filter((item) => {
+      const itemDate = new Date(item.flightDate_dep);
+      const startFilter = new Date(start);
+      const endFilter = new Date(end);
+      return itemDate >= startFilter && itemDate <= endFilter;
+    });
+    setFilteredData(filteredItems);
+  };
+  const filteredCards = tickets.filter((card) =>
+    card.booking_code.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <>
       <Navbar />
@@ -45,7 +100,11 @@ function Riwayat() {
         </Row>
         <Row className="d-flex justify-content-between gap-3">
           <Col>
-            <Button style={{ background: "#A06ECE", border: "0" }}>
+            <Button
+              style={{ background: "#A06ECE", border: "0" }}
+              as={Link}
+              to="/"
+            >
               <BsArrowLeft />
               &nbsp; Beranda
             </Button>
@@ -66,7 +125,14 @@ function Riwayat() {
             </Button>
           </Col>
         </Row>
-        {tickets ? <RiwayatTersedia /> : <RiwayatKosong />}
+        {tickets ? (
+          <RiwayatTersedia
+            filteredCards={filteredCards}
+            filteredData={filteredData}
+          />
+        ) : (
+          <RiwayatKosong />
+        )}
       </Container>
       <Modal show={showFilter} onHide={handleCloseFilter} centered>
         <Modal.Header closeButton>
@@ -75,14 +141,27 @@ function Riwayat() {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>Pilih Tanggal: &nbsp;</Form.Label>
+              {/* <Form.Label>Pilih Tanggal: &nbsp;</Form.Label>
               <RangePicker
                 onChange={(tanggal) => {
-                  // console.log(tanggal[0]);
-                  // console.log(tanggal[1]);
-                  setDateFrom(tanggal[0]);
-                  setDateTo(tanggal[1]);
+                  console.log(tanggal[0].$d);
+                  console.log(tanggal[1].$d);
+                  setDateFrom(tanggal[0].$d);
+                  setDateTo(tanggal[1].$d);
                 }}
+              /> */}
+              <label>Start Date:</label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={handleStartDateChange}
+              />
+
+              <label>End Date:</label>
+              <input
+                type="date"
+                value={endDate}
+                onChange={handleEndDateChange}
               />
             </Form.Group>
           </Form>
@@ -102,10 +181,12 @@ function Riwayat() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>Booking Code</Form.Label>
               <Form.Control
-                type="input"
+                type="text"
                 placeholder="Masukan Nomor Penerbangan"
                 // autoFocus
                 // readOnly
+                value={searchTerm}
+                onChange={handleSearch}
               />
             </Form.Group>
           </Form>
