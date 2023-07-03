@@ -23,11 +23,14 @@ export const getMe =
 
       if (!token) return;
 
-      const response = await axios.get(`${process.env.REACT_APP_API}/whoami`, {
-        headers: {
-          Authorization: ` ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_API}/auth/whoami`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const data = response.data.data;
 

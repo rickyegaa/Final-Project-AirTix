@@ -37,14 +37,13 @@ const Register = () => {
       let config = {
         method: "post",
         maxBodyLength: Infinity,
-        url: "",
         headers: {
           "Content-Type": "application/json",
         },
         data: data,
       };
       const response = await axios.post(
-        `https://airtix-develop.up.railway.app/auth/resend-otp`,
+        `${process.env.REACT_APP_API}/auth/resend-otp`,
         data,
         config
       );
