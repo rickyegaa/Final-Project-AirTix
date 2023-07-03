@@ -23,11 +23,14 @@ export const getMe =
 
       if (!token) return;
 
-      const response = await axios.get(`${process.env.REACT_APP_API}/whoami`, {
-        headers: {
-          Authorization: ` ${token}`,
-        },
-      });
+      const response = await axios.get(
+        `${process.env.REACT_APP_API}/auth/whoami`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       const data = response.data.data;
       console.log(data);
@@ -69,7 +72,7 @@ export const register = (data, navigate) => async (dispatch) => {
     toast.success("Registered Successfull", {
       position: toast.POSITION.TOP_RIGHT,
     });
-    navigate("/Verifikasi");
+    navigate("/Login");
 
     dispatch(setToken(token));
     dispatch(setIsLoggedIn(true));
@@ -140,6 +143,7 @@ export const registerLoginWithGoogle =
       };
 
       const response = await axios.request(config);
+      console.log(response);
       const { token } = response.data.data;
 
       toast.success("LoggedIn Successfull", {

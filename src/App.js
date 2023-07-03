@@ -18,9 +18,7 @@ import { Provider } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import store from "./redux/store";
 import EmailRequest from "./pages/EmailRequest";
-import Gabut from "./pages/Gabut";
-import Gabut1 from "./pages/Gabut1";
-import AccordionRiwayat from "./components/AccordionRiwayat";
+
 
 function App() {
   return (
@@ -73,9 +71,6 @@ function App() {
               }
             />
             <Route path="/Checkout" element={<Checkout />} />
-            <Route path="/Gabut" element={<Gabut />} />
-            <Route path="/Gabut1" element={<Gabut1 />} />
-            <Route path="/AccordionRiwayat" element={<AccordionRiwayat />} />
             <Route path="/EmailRequest" element={<EmailRequest />} />
             <Route path="/Payment" element={<Payment />} />
             <Route path="/Notifikasi" element={<Notifikasi />} />
