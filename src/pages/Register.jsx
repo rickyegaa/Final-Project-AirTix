@@ -33,7 +33,6 @@ const Register = () => {
       phone,
       password,
     });
-
     // try {
     //   let config = {
     //     method: "post",
@@ -59,8 +58,6 @@ const Register = () => {
     //     toast.error("Something went wrong");
     //   }
     // }
-
-   
 
     dispatch(register(data, navigate));
   };
