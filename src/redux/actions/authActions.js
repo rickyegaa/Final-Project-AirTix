@@ -71,7 +71,7 @@ export const register = (data, navigate) => async (dispatch) => {
     toast.success("Registered Successfull", {
       position: toast.POSITION.TOP_RIGHT,
     });
-    navigate("/Verifikasi");
+    navigate("/Login");
 
     dispatch(setToken(token));
     dispatch(setIsLoggedIn(true));
@@ -131,10 +131,10 @@ export const registerLoginWithGoogle =
       });
 
       let config = {
-        method: "post",
+        method: "GET",
         maxBodyLength: Infinity,
         //This API from Fahmi AlFareza temporary!
-        url: `https://km4-challenge-5-api.up.railway.app/api/v1/auth/google`,
+        url: `https://7274-182-253-127-199.ngrok-free.app/auth/oauth`,
         headers: {
           "Content-Type": "application/json",
         },
@@ -142,6 +142,7 @@ export const registerLoginWithGoogle =
       };
 
       const response = await axios.request(config);
+      console.log(response);
       const { token } = response.data.data;
 
       toast.success("LoggedIn Successfull", {
